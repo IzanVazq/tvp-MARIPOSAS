@@ -39,8 +39,8 @@ bool balloon::hit(const Rectangle& obj) {
 		return false;
 	}
 
-	if (position.hasIntersection(obj)) {
-		exploted = true;
+	if (position.hasIntersection(obj)) {	
+		exploted = true;	
 		return true;
 	}
 	return false;

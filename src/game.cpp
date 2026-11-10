@@ -85,7 +85,7 @@ Game::Game()
 void 
 Game::loadLevel()
 {
-	ifstream file(string(LEVEL_ROOT) + "1.txt");
+	ifstream file(string(LEVEL_ROOT) + to_string(nivel) + ".txt");
 
 	string key;
 
@@ -105,6 +105,11 @@ Game::loadLevel()
 			int p;
 			file >> p;
 			balPuntos = p;
+		}
+		else if (key == "goal") {
+			int g;
+			file >> g;
+			objetivo = g;
 		}
 		else {
 			file.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -182,6 +187,10 @@ Game::update()
 		delete bow;
 		exit = true;
 	}
+
+	if (puntos >= objetivo) {
+		this->nextLevel();
+	}
 }
 
 void
@@ -228,4 +237,18 @@ Game::checkCollision(const Rectangle& rect)
 		}
 	}
 	return false;
+}
+
+void
+Game::nextLevel() {
+	nivel++;
+	puntos = 0;
+
+	for (int i = 0; i < arrows.size(); i++) delete arrows[i];
+	arrows.clear();
+
+	for (int i = 0; i < balloons.size(); i++) delete balloons[i];
+	balloons.clear();
+
+	this->loadLevel();
 }

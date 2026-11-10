@@ -64,9 +64,12 @@ private:
 	std::vector<Arrow*> arrows; //Flecha
 	std::vector<balloon*> balloons; //Vector de globos
 
+	int nivel = 1;
+
 	//Puntos
 	int puntos = 0;
 	int balPuntos = 10;
+	int objetivo = 50;
 
 	void loadLevel();
 
@@ -82,6 +85,9 @@ public:
 
 	// Comprueba si hay algún objeto colocado en ese rectángulo
 	bool checkCollision(const Rectangle& rect);
+
+	// Siguiente Nivel
+	void nextLevel();
 };
 
 inline Texture*
