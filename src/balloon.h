@@ -1,13 +1,11 @@
 #pragma once
-
+#include "MobileObject.h"
 #include "rectangle.h"
 #include "vector2D.h"
 #include "texture.h"
-class balloon
+class balloon : MobileObject
 {
 private:
-	Rectangle position; // Posicion y dimensiones
-	Vector2D<> velocity; // Velocidad
 	int color; // Indice del coso
 	bool exploted = false; //Estado del globo
 	int activeFrame = 0;

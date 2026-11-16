@@ -4,11 +4,9 @@
 #include <SDL3/SDL.h>
 #include "game.h"
 
-Bow::Bow(Texture* textura, Game* game) {
-	position = Rectangle(Point2D<>(0, 230.0f), 125.0f, 125.0f);
-	this->position = position;
+Bow::Bow(Texture* textura, Game* game)
+	: SceneObject(game, Rectangle(Point2D<>(0.0f, 230.0f), 125.0f, 125.0f)) {
 	this->textura = textura;
-	this->game = game;
 }
 
 Bow::~Bow() {

@@ -9,9 +9,6 @@ class Arrow : MobileObject
 {
 private:
 	Texture* textura;
-	float dir = 1.0f;
-	float speed = 200.0f;
-
 public:
 	Arrow(Texture* textura, Rectangle position, Game* game);
 	~Arrow();

@@ -150,6 +150,18 @@ Game::createButterflies(int number)
 Game::~Game()
 {
 	// TODO: liberar la memoria reservada por la clase
+	for (size_t i = 0; i < textures.size(); i++) delete textures[i];
+
+	for (int i = 0; i < arrows.size(); i++) delete arrows[i];
+	arrows.clear();
+
+	for (int i = 0; i < balloons.size(); i++) delete balloons[i];
+	balloons.clear();
+
+	for (int i = 0; i < butterflies.size(); i++) delete butterflies[i];
+	butterflies.clear();
+
+	delete bow;
 }
 
 void
@@ -220,7 +232,6 @@ Game::update()
 	//Carga 
 	bow->update(delta);
 	if (bow->getArrowsLeft() == 0 && arrows.empty()) {
-		delete bow;
 		exit = true;
 	}
 
@@ -303,6 +314,9 @@ Game::nextLevel() {
 
 	for (int i = 0; i < balloons.size(); i++) delete balloons[i];
 	balloons.clear();
+
+	for (int i = 0; i < butterflies.size(); i++) delete butterflies[i];
+	butterflies.clear();
 
 	this->loadLevel();
 }

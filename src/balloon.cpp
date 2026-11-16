@@ -3,11 +3,10 @@
 #include "rectangle.h"
 #include <SDL3/SDL.h>
 
-balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color) {
-		position = Rectangle(Point2D<>(xSpawn, 600.0f), 125.0f, 125.0f),
-		this->velocity = Vector2D(0.0f, -velocidad),
-		this->color = color,
-		this->textura = textura;
+balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color) 
+	: MobileObject(game, Rectangle(Point2D<>(xSpawn, 600.0f), 125.0f, 125.0f), Vector2D<>(0.0f, -velocidad)) {
+	this->color = color,
+	this->textura = textura;
 }
 
 
@@ -17,7 +16,7 @@ void balloon::render() const{ //Dibuja globo
 }
 
 bool balloon::update(float delta){ //Mueve el globo y devuelve false si sale del límite establecido
-	if(!exploted) position.move(velocity * delta);
+	if (!exploted) MobileObject::update(delta);
 	else {
 		animTime += delta;
 		if (animTime >= frameTime) {
@@ -39,7 +38,7 @@ bool balloon::hit(const Rectangle& obj) {
 		return false;
 	}
 
-	if (position.hasIntersection(obj)) {	
+	if (SceneObject::hit(obj)) {	
 		exploted = true;	
 		return true;
 	}

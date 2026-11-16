@@ -1,20 +1,17 @@
 #pragma once
+#include "SceneObject.h"
 #include "SDL3/SDL.h"
 #include "rectangle.h"
 #include "vector2D.h"
 #include "texture.h"
-class Game;
-class Bow
+class Bow : SceneObject
 {
 private:
-	Rectangle position; //Posición del arco
 	Texture* textura;
-	Game* game;
 	float dir = 0.0f; //Dirección de movimiento vertical
 	float speed = 200.0f; //Velocidad de movimiento
 	int arrowsLeft = 10;
 	bool charged = false; //Estado del arco
-	bool shoot = false; //Estado del disparo
 public:
 	Bow(Texture* textura, Game* game);
 	~Bow();
