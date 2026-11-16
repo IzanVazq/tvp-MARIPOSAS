@@ -24,7 +24,7 @@ public:
 	int getArrowsLeft() const {
 		return arrowsLeft;
 	}
-	void setArrowLeft(int n) {
+	void setArrowsLeft(int n) {
 		arrowsLeft = n;
 	}
 };
