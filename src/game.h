@@ -9,6 +9,7 @@
 #include "Bow.h"
 #include "balloon.h"
 #include "Arrow.h"
+#include "butterfly.h"
 
 // #include "rectangle.h"
 
@@ -35,6 +36,7 @@ public:
 		BOW = 0,
 		ARROW,
 		BALLOONS,
+		BUTTERFLY,
 		NUM_TEXTURES
 	};
 
@@ -63,6 +65,7 @@ private:
 	Bow* bow; //Arco
 	std::vector<Arrow*> arrows; //Flecha
 	std::vector<balloon*> balloons; //Vector de globos
+	std::vector<Butterfly*> butterflies; //Vector Mariposa
 
 	int nivel = 1;
 
@@ -72,6 +75,7 @@ private:
 	int objetivo = 50;
 
 	void loadLevel();
+	void createButterflies(int num);
 
 public:
 	Game();
