@@ -4,6 +4,8 @@
 #include <SDL3/SDL.h>
 #include <array>
 #include <istream>
+#include <ostream>
+#include <fstream>
 #include <vector>
 #include <random>
 #include "Bow.h"
@@ -95,6 +97,9 @@ public:
 
 	// Siguiente Nivel
 	void nextLevel();
+
+	void saveGame() const; //Guardar Nivel
+	void loadGame(); //Cargar Nivel
 };
 
 inline Texture*

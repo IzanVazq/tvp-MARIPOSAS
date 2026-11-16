@@ -18,6 +18,8 @@ public:
 	void render() const;
 	bool update(float delta);
 	void handleEvent(const SDL_Event& event);	
+	void save(std::ostream& os) const;
+	void load(std::istream& is);
 	int getArrowsLeft() const {
 		return arrowsLeft;
 	}

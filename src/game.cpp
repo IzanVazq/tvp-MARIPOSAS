@@ -269,7 +269,11 @@ Game::handleEvents()
 		if (event.type == SDL_EVENT_QUIT)
 			exit = true;
 
-		// TODO
+		if (event.type == SDL_EVENT_KEY_DOWN && (event.key.mod & SDL_KMOD_CTRL)) {
+			if (event.key.key == SDLK_S) saveGame();
+			else if (event.key.key == SDLK_O) loadGame();
+		}
+	
 		bow->handleEvent(event);
 	}
 }
@@ -319,4 +323,40 @@ Game::nextLevel() {
 	butterflies.clear();
 
 	this->loadLevel();
+}
+
+void
+Game::saveGame() const {
+	std::ofstream file("saved.txt");
+
+	file << nivel << '\n';
+	file << puntos << '\n';
+
+	bow->save(file);
+}
+
+void
+Game::loadGame() {
+	for (int i = 0; i < arrows.size(); i++) delete arrows[i];
+	arrows.clear();
+
+	for (int i = 0; i < balloons.size(); i++) delete balloons[i];
+	balloons.clear();
+
+	for (int i = 0; i < butterflies.size(); i++) delete butterflies[i];
+	butterflies.clear();
+
+	std::ifstream file("saved.txt");
+
+	int savedLevel;
+	int savedPoints;
+
+	file >> savedLevel;
+	file >> savedPoints;
+
+	nivel = savedLevel;
+	puntos = savedPoints;
+
+	loadLevel();
+	bow->load(file);
 }

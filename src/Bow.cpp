@@ -24,8 +24,7 @@ bool Bow::update(float delta) { //Mueve el arco dentro de los límites estableci
 	return true;
 }
 
-void Bow::handleEvent(const SDL_Event& event)
-{
+void Bow::handleEvent(const SDL_Event& event) {
 	if (event.type == SDL_EVENT_KEY_DOWN) { //Establece la dirección según la flecha presionada
 		if (event.key.key == SDLK_UP) dir = -1.0f;
 		else if (event.key.key == SDLK_DOWN) dir = 1.0f;
@@ -39,4 +38,22 @@ void Bow::handleEvent(const SDL_Event& event)
 	else if (event.type == SDL_EVENT_KEY_UP) { //Vuelve 0.0f la dirección si se levanta la tecla
 		if (event.key.key == SDLK_UP && dir < 0.0f || event.key.key == SDLK_DOWN && dir > 0.0f) dir = 0.0f;
 	}
+}
+
+void Bow::save(std::ostream& os) const {
+	os << arrowsLeft << '\n';
+	os << charged << '\n';
+
+	Point2D<> pos = position.getTopLeftCorner();
+	os << pos.getX() << '\n';
+	os << pos.getY() << '\n';
+}
+
+void Bow::load(std::istream& is) {
+	is >> arrowsLeft;
+	is >> charged;
+	int x, y;
+	is >> x;
+	is >> y;
+	position = Rectangle(Point2D<>(x, y), position.getWidth(), position.getHeight());
 }
