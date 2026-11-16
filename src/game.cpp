@@ -76,6 +76,8 @@ Game::Game()
 	
 	//ARCO
 	bow = new Bow(getTexture(BOW), this);
+
+	loadLevel();
 }
 
 void 
@@ -174,7 +176,12 @@ Game::update()
 	//Carga 
 	bow->update(delta);
 	if (bow->getArrowsLeft() == 0 && arrows.empty()) {
+		delete bow;
 		exit = true;
+	}
+
+	if (puntos >= objetivo) {
+		this->nextLevel();
 	}
 }
 
