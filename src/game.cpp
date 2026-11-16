@@ -35,7 +35,8 @@ struct TextureSpec
 constexpr array<TextureSpec, Game::NUM_TEXTURES> textureList{
 	TextureSpec{"bow.png", 1, 2},
 	{"arrow.png"},
-	{"balloons.png", 7, 6}
+	{"balloons.png", 7, 6},
+	{"butterfly.png", 4, 10}
 };
 
 Game::Game()
@@ -109,12 +110,41 @@ Game::loadLevel()
 			file >> g;
 			objetivo = g;
 		}
+		else if (key == "butterflies") { // Crea las mariposas que pone en el archivo
+			int n;
+			file >> n;
+			createButterflies(n);
+
+		}
 		else {
 			file.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
+
 	}
 
 	file.close();
+}
+
+void
+Game::createButterflies(int number)
+{
+	std::uniform_int_distribution<int> x(0, WINDOW_WIDTH - 50);
+	std::uniform_int_distribution<int> y(0, WINDOW_HEIGHT - 50);
+	std::uniform_real_distribution<float> speed(-100, 100);
+
+	for (int i = 0; i < number; i++)
+	{
+		Rectangle pos(
+			Point2D<>(x(randomGenerator), y(randomGenerator)),
+			50, 50
+		);
+
+		Vector2D<> vel(speed(randomGenerator), speed(randomGenerator));
+
+		butterflies.push_back(
+			new Butterfly(getTexture(BUTTERFLY), this, pos, vel)
+		);
+	}
 }
 
 Game::~Game()
@@ -127,7 +157,7 @@ Game::render() const
 {
 	SDL_SetRenderDrawColor(renderer, 0, 140, 0, 255);
 	SDL_RenderClear(renderer);
-	// TODO
+	
 	bow->render(); //Renderiza arco
 	for (int i = 0; i < arrows.size(); i++) arrows[i]->render();
 	for (int i = 0; i < balloons.size(); i++) balloons[i]->render(); //Renderiza todos los globos
@@ -140,6 +170,10 @@ Game::render() const
 	//Renderiza el texto de las flechas restantes
 	string flechas = "Flechas: " + to_string(bow->getArrowsLeft());
 	SDL_RenderDebugText(renderer, 695, 25, flechas.c_str());
+
+	for (int i = 0; i < butterflies.size(); i++) {
+		butterflies[i]->render();
+	}
 
 	SDL_RenderPresent(renderer);
 }
@@ -171,6 +205,16 @@ Game::update()
 			arrows.erase(arrows.begin() + i);
 		}
 		else i++;
+	}
+
+	for (int i = 0; i < butterflies.size();) {
+		if (!butterflies[i]->update(delta)) {
+			delete butterflies[i];
+			butterflies.erase(butterflies.begin() + i);
+		}
+		else {
+			i++;
+		}
 	}
 
 	//Carga 
@@ -222,12 +266,24 @@ Game::handleEvents()
 bool //colisiones revisador
 Game::checkCollision(const Rectangle& rect)
 {
+	//Colisiones Globos
 	for (int i = 0; i < balloons.size(); i++) {
 		if (balloons[i]->hit(rect)) {
 			puntos += balPuntos;
 			return true;
 		}
 	}
+
+	//Colisiones Mariposas
+	for (int i = 0; i < butterflies.size(); i++)
+	{
+		if (butterflies[i]->hit(rect))
+		{
+			puntos -= 10;
+			return true;
+		}
+	}
+
 	return false;
 }
 
