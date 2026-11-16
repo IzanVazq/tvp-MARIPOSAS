@@ -4,10 +4,9 @@
 	#include <SDL3/SDL.h>
 	#include "game.h"
 
-	Arrow::Arrow(Texture* textura, Rectangle position, Game* game) {
-		this->position = position;
+	Arrow::Arrow(Texture* textura, Rectangle position, Game* game)
+		: MobileObject(game, position, Vector2D<>(200.0f, 0.0f)) {
 		this->textura = textura;
-		this->game = game;
 	}
 
 	void Arrow::render() const
@@ -17,7 +16,7 @@
 	}
 
 	bool Arrow::update(float delta) {
-		position.move(Vector2D<>{dir* speed* delta, 0.0f}); //Movimiento de flecha
+		position.move(Vector2D<>{dir * speed * delta, 0.0f}); //Movimiento de flecha
 		
 		Point2D<> pos = position.getTopLeftCorner(); //Obtiene la posicion de la flecha
 		Rectangle punta(Point2D<>(pos.getX() + position.getWidth() - 20, pos.getY()), 10.0f, 10.0f); //Crea un rectangle en la punta

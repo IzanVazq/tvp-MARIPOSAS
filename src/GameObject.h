@@ -6,7 +6,6 @@ class GameObject
 {
 protected:
     Game* game;
-
 public:
     GameObject(Game* game);
     virtual ~GameObject();
