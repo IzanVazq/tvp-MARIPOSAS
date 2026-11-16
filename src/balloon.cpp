@@ -13,12 +13,21 @@ balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color) {
 
 void balloon::render() const{ //Dibuja globo
 	SDL_FRect destination = position.to_sdl();
-	textura->renderFrame(destination, color, 0);
+	textura->renderFrame(destination, color, activeFrame);
 }
 
 bool balloon::update(float delta){ //Mueve el globo y devuelve false si sale del límite establecido
-	position.move(velocity * delta);
-	return (position.getTopLeftCorner().getY() > 150 && !exploted);
+	if(!exploted) position.move(velocity * delta);
+	else {
+		animTime += delta;
+		if (animTime >= frameTime) {
+			animTime = 0.0f;
+			activeFrame++;
+		}
+		if(activeFrame >= 6) animEnd = true;
+	}
+
+	return (position.getTopLeftCorner().getY() > -150 && !animEnd);
 }
 
 balloon::~balloon() { //Destruye globo
@@ -30,8 +39,8 @@ bool balloon::hit(const Rectangle& obj) {
 		return false;
 	}
 
-	if (position.hasIntersection(obj)) {
-		exploted = true;
+	if (position.hasIntersection(obj)) {	
+		exploted = true;	
 		return true;
 	}
 	return false;

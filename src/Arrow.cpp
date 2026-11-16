@@ -20,7 +20,7 @@
 		position.move(Vector2D<>{dir* speed* delta, 0.0f}); //Movimiento de flecha
 		
 		Point2D<> pos = position.getTopLeftCorner(); //Obtiene la posicion de la flecha
-		Rectangle punta(Point2D<>(pos.getX() + position.getWidth() - 10, pos.getY()), 10.0f, 10.0f); //Crea un rectangle en la punta
+		Rectangle punta(Point2D<>(pos.getX() + position.getWidth() - 20, pos.getY()), 10.0f, 10.0f); //Crea un rectangle en la punta
 
 		game->checkCollision(punta); //Revisa colisión de la punta con los globos
 		return (position.getTopLeftCorner().getX() < 900); //Devuelve false si se sale de la pantalla

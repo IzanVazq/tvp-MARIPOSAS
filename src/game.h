@@ -64,9 +64,12 @@ private:
 	std::vector<Arrow*> arrows; //Flecha
 	std::vector<balloon*> balloons; //Vector de globos
 
+	int nivel = 1;
+
 	//Puntos
 	int puntos = 0;
 	int balPuntos = 10;
+	int objetivo = 50;
 
 	void loadLevel();
 
@@ -85,6 +88,9 @@ public:
 
 	// Dispara una flecha cuando el arco recibe el input correspondiente
 	void shootArrow(Rectangle arrowPos);
+
+	// Siguiente Nivel
+	void nextLevel();
 };
 
 inline Texture*

@@ -10,6 +10,10 @@ private:
 	Vector2D<> velocity; // Velocidad
 	int color; // Indice del coso
 	bool exploted = false; //Estado del globo
+	int activeFrame = 0;
+	float animTime = 0.0f;
+	const float frameTime = 0.1f;
+	bool animEnd = false;
 	Texture* textura;
 
 public:

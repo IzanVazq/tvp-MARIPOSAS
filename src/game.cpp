@@ -78,19 +78,19 @@ Game::Game()
 	bow = new Bow(getTexture(BOW), this);
 }
 
-void
+void 
 Game::loadLevel()
 {
-	ifstream file(string(LEVEL_ROOT) + "1.txt");
+	ifstream file(string(LEVEL_ROOT) + to_string(nivel) + ".txt");
 
 	string key;
 
 	while (file >> key) {
-		
+
 		if (key == "arrows") {
 			int n;
 			file >> n;
-			bow->setArrowLeft(n);
+			bow->setArrowsLeft(n);
 		}
 		else if (key == "baldelay") {
 			int t;
@@ -102,6 +102,11 @@ Game::loadLevel()
 			file >> p;
 			balPuntos = p;
 		}
+		else if (key == "goal") {
+			int g;
+			file >> g;
+			objetivo = g;
+		}
 		else {
 			file.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
@@ -109,6 +114,7 @@ Game::loadLevel()
 
 	file.close();
 }
+
 Game::~Game()
 {
 	// TODO: liberar la memoria reservada por la clase
@@ -211,7 +217,7 @@ Game::checkCollision(const Rectangle& rect)
 {
 	for (int i = 0; i < balloons.size(); i++) {
 		if (balloons[i]->hit(rect)) {
-			puntos += 10;
+			puntos += balPuntos;
 			return true;
 		}
 	}
@@ -222,4 +228,18 @@ void
 Game::shootArrow(Rectangle arrowPos) {
 	Arrow* arrowAux = new Arrow(getTexture(ARROW), arrowPos, this);
 	arrows.push_back(arrowAux);
+}
+
+void
+Game::nextLevel() {
+	nivel++;
+	puntos = 0;
+
+	for (int i = 0; i < arrows.size(); i++) delete arrows[i];
+	arrows.clear();
+
+	for (int i = 0; i < balloons.size(); i++) delete balloons[i];
+	balloons.clear();
+
+	this->loadLevel();
 }
