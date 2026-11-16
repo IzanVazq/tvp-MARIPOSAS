@@ -1,8 +1,7 @@
-Cristopher Jeremy Villacis Gallindo
-Izan Vázquez Sánchez 
+Cristopher Jeremy Villacis Galindo
+Izan Vázquez Sánchez
 
-Las funcionalidades de las que carece nuestra práctica son:
--No puede leer un archivo para inicializar el juego preconfigurado.
--Los globos no muestran la animación al explotar.
--Las colisiónes de la flecha son un rectángulo más grande que la flecha.
--El juego no puede terminar de forma natural.
+Las funcionalidades de las que carece nuestro proyecto son:
+-La lista polimórfica de objetos del juego.
+-Que al guardar partida no guarda la posición de los globos, flechas y mariposas.
+-Jerarquía de excepciones
