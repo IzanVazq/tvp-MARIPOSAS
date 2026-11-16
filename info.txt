@@ -1,0 +1,8 @@
+Cristopher Jeremy Villacis Gallindo
+Izan Vázquez Sánchez 
+
+Las funcionalidades de las que carece nuestra práctica son:
+-No puede leer un archivo para inicializar el juego preconfigurado.
+-Los globos no muestran la animación al explotar.
+-Las colisiónes de la flecha son un rectángulo más grande que la flecha.
+-El juego no puede terminar de forma natural.
