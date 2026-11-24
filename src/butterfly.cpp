@@ -1,4 +1,4 @@
-#include "Butterfly.h"
+#include "butterfly.h"
 #include "game.h"
 
 #include <random>

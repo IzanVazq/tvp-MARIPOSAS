@@ -36,7 +36,7 @@ void Bow::handleEvent(const SDL_Event& event) {
 		}
 	}
 	else if (event.type == SDL_EVENT_KEY_UP) { //Vuelve 0.0f la dirección si se levanta la tecla
-		if (event.key.key == SDLK_UP && dir < 0.0f || event.key.key == SDLK_DOWN && dir > 0.0f) dir = 0.0f;
+		if ((event.key.key == SDLK_UP && dir < 0.0f) || (event.key.key == SDLK_DOWN && dir > 0.0f)) dir = 0.0f;
 	}
 }
 
