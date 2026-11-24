@@ -224,6 +224,11 @@ Game::update()
 		exit = true;
 	}
 
+	if (puntos < 0) 
+	{
+		puntos = 0; 
+	}
+
 	if (puntos >= objetivo) {
 		this->nextLevel();
 	}
