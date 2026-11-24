@@ -100,6 +100,7 @@ public:
 
 	void saveGame() const; //Guardar Nivel
 	void loadGame(); //Cargar Nivel
+	void ballonData(std::ostream& os, int color, bool exploted, int activeFrame, float animTime, Rectangle& pos);
 };
 
 inline Texture*

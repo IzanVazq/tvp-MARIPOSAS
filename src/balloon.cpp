@@ -1,9 +1,10 @@
 #include "balloon.h"
 #include "texture.h"
 #include "rectangle.h"
+#include "game.h"
 #include <SDL3/SDL.h>
 
-balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color) 
+balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color, Game* game)
 	: MobileObject(game, Rectangle(Point2D<>(xSpawn, 600.0f), 125.0f, 125.0f), Vector2D<>(0.0f, -velocidad)) {
 	this->color = color,
 	this->textura = textura;
@@ -43,4 +44,21 @@ bool balloon::hit(const Rectangle& obj) {
 		return true;
 	}
 	return false;
+}
+
+int 
+balloon::save(std::ostream& os) const {
+	Game::ballonData(os, color, exploted, activeFrame, animTime, this->position);
+}
+
+void 
+balloon::load(std::istream& is) {
+	is >> color;
+	is >> exploted;
+	is >> activeFrame;
+	is >> animTime;
+	int x, y;
+	is >> x;
+	is >> y;
+	position = Rectangle(Point2D<>(x, y), position.getWidth(), position.getHeight());
 }

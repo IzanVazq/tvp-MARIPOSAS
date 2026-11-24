@@ -15,10 +15,12 @@ private:
 	Texture* textura;
 
 public:
-	balloon(Texture* textura, int xSpawn, float velocidad, int color);
+	balloon(Texture* textura, int xSpawn, float velocidad, int color, Game* game);
 	~balloon();
 	void render() const;
 	bool update(float delta);
 	bool hit(const Rectangle& obj);
+	int save(std::ostream& os) const;
+	void load(std::istream& is);
 };
 

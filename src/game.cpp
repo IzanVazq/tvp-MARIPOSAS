@@ -333,6 +333,19 @@ Game::saveGame() const {
 	file << puntos << '\n';
 
 	bow->save(file);
+
+	for (int i = 0; i < balloons.size(); i++) {
+		file << balloons[i]->save(file) << ' ';
+		/*os << exploted << ' ';
+		os << activeFrame << ' ';
+		os << animTime << ' ';*/
+
+		/*Point2D<> pos = balloons[i].position.getTopLeftCorner();
+		os << pos.getX() << ' ';
+		os << pos.getY() << ' ';*/
+	}
+
+	file.close();
 }
 
 void
@@ -359,4 +372,11 @@ Game::loadGame() {
 
 	loadLevel();
 	bow->load(file);
+
+	file.close();
+}
+
+void
+Game::ballonData(std::ostream& os, int color, bool exploted, int activeFrame, float animTime, Rectangle& pos) {
+	os << color << ' ';
 }
