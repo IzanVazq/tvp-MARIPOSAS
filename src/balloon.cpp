@@ -4,7 +4,7 @@
 #include "game.h"
 #include <SDL3/SDL.h>
 
-balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color, Game* game)
+balloon::balloon(Texture* textura, int xSpawn, float velocidad, int color)
 	: MobileObject(game, Rectangle(Point2D<>(xSpawn, 600.0f), 125.0f, 125.0f), Vector2D<>(0.0f, -velocidad)) {
 	this->color = color,
 	this->textura = textura;
@@ -47,8 +47,23 @@ bool balloon::hit(const Rectangle& obj) {
 }
 
 int 
-balloon::save(std::ostream& os) const {
-	Game::ballonData(os, color, exploted, activeFrame, animTime, this->position);
+balloon::returnData(int indice) const {
+	int result = 0;
+	if (indice == 0) {
+		result = color;
+	}
+	else if(indice == 1){
+		result = exploted;
+	}
+	else if(indice == 2){
+		result = activeFrame;
+	}
+	return result;
+}
+
+Rectangle&
+returnVector() {
+	return MobileObject::position.
 }
 
 void 

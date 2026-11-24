@@ -335,7 +335,11 @@ Game::saveGame() const {
 	bow->save(file);
 
 	for (int i = 0; i < balloons.size(); i++) {
-		file << balloons[i]->save(file) << ' ';
+		for (int j = 0; j < 3; j++) {
+			file << balloons[i]->returnData(j) << ' ';
+		}
+		balloons[i]->returnVector;
+		file << '\n';
 		/*os << exploted << ' ';
 		os << activeFrame << ' ';
 		os << animTime << ' ';*/
@@ -374,9 +378,4 @@ Game::loadGame() {
 	bow->load(file);
 
 	file.close();
-}
-
-void
-Game::ballonData(std::ostream& os, int color, bool exploted, int activeFrame, float animTime, Rectangle& pos) {
-	os << color << ' ';
 }
